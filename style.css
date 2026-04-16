@@ -1175,3 +1175,36 @@ body.izel-mode .name-trace::after {
   text-shadow: 0 0 15px rgba(255, 123, 0, 0.8) !important; /* Hafifçe etrafa ışık saçar */
   font-size: 0.8rem !important; /* Okunması için bir tık büyür */
 }
+@media (min-width: 1024px) {
+  /* Genel ölçeklendirme */
+  html {
+    font-size: 18px; 
+  }
+
+  .wrap {
+    width: min(1300px, 90vw); /* Daha geniş bir kapsayıcı */
+  }
+
+  /* Başlık ve alt başlık */
+  .library-title {
+    font-size: 5rem;
+  }
+
+  /* Fotoğraf çerçeveleri */
+  .photo-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    padding: 40px;
+  }
+
+  .frame {
+    padding: 15px;
+    border-width: 2px;
+  }
+
+  /* Yazı alanları */
+  .post-content p {
+    font-size: 1.4rem;
+    line-height: 2;
+  }
+}
