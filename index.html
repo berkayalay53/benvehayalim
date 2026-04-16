@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Anı Atlası — Berkay Alay</title>
   <link rel="stylesheet" href="./style.css" />
   <style>
@@ -175,17 +175,21 @@
 
   <script>
     const music = document.getElementById('bgMusic');
-    const disc = document.getElementById('musicDisc');
+music.volume = 0.5; // Ses seviyesini %50 yapar
 
-    disc.addEventListener('click', () => {
-      if (music.paused) {
-        music.play();
-        disc.classList.add('playing');
-      } else {
-        music.pause();
-        disc.classList.remove('playing');
-      }
-    });
+// Otomatik çalma denemesi (Tarayıcı izin verirse)
+window.addEventListener('load', () => {
+  music.play().catch(() => {
+    console.log("Otomatik oynatma tarayıcı tarafından engellendi. Kullanıcı etkileşimi bekleniyor.");
+  });
+});
+
+// Intro butonuna basıldığında çalmasını garantilemek için
+btn.addEventListener('click', () => {
+  music.play();
+  disc.classList.add('playing');
+  // ... diğer kodlar ...
+});
 
     const spotlight = document.querySelector('.spotlight');
     document.addEventListener('mousemove', (e) => {
