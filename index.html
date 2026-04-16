@@ -6,15 +6,39 @@
   <title>Anı Atlası — Berkay Alay</title>
   <link rel="stylesheet" href="./style.css" />
   <style>
-    /* PC'DE ÖZEL BÜYÜK GÖRÜNÜM */
-    @media (min-width: 1024px) {
-      html { font-size: 20px; }
-      .wrap { width: min(1300px, 92vw); }
-      .photo-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
-      .library-title { font-size: 5.5rem; }
+    /* TOZ ZERRELERİ (YAVAŞ VE DERİN) */
+    #dust-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .dust {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      animation: floatDust linear infinite;
+    }
+    @keyframes floatDust {
+      0% { transform: translateY(0) translateX(0); opacity: 0; }
+      20% { opacity: 0.4; }
+      80% { opacity: 0.2; }
+      100% { transform: translateY(-150px) translateX(30px); opacity: 0; }
     }
 
-    /* GİRİŞ EKRANI (INTRO) AYARLARI */
+    /* PC GÖRÜNÜMÜ (ÖLÇEKLİ VE ZARİF) */
+    @media (min-width: 1024px) {
+      .photo-grid {
+        /* Resimler PC'de çok büyümesin diye 230px sınırı koyduk */
+        grid-template-columns: repeat(auto-fit, minmax(230px, 280px)); 
+        justify-content: center; /* Ortada toplansınlar */
+        gap: 30px;
+      }
+      .frame { padding: 10px; }
+      .library-title { font-size: 4rem; } /* Çok devasa olmasın */
+    }
+
+    /* GİRİŞ EKRANI */
     #introScreen {
       position: fixed;
       inset: 0;
@@ -23,72 +47,61 @@
       align-items: center;
       justify-content: center;
       background: #0f1113;
-      transition: opacity 1.2s ease, visibility 1.2s;
+      transition: opacity 1.5s ease;
     }
-
-    /* İzel3'ü blurlu arka plan yapıyoruz */
     #introScreen::before {
       content: '';
       position: absolute;
       inset: 0;
       background: url('./izel3.jpg') center/cover no-repeat;
-      filter: blur(15px) brightness(0.3);
+      filter: blur(20px) brightness(0.2);
       z-index: -1;
     }
 
-    .intro-content { text-align: center; }
-    .intro-text { 
-      font-family: var(--serif); 
-      font-size: 1.5rem; 
-      color: var(--text); 
-      margin-bottom: 30px; 
-      font-style: italic; 
-    }
-
+    /* SAYFA GEÇİŞLERİ */
+    body { opacity: 0; transition: opacity 2s ease; }
+    body.ready { opacity: 1 !important; }
+    
     #introBtn {
       background: transparent;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      padding: 12px 35px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      padding: 12px 30px;
       border-radius: 50px;
       cursor: pointer;
-      text-transform: uppercase;
       letter-spacing: 2px;
-      transition: 0.4s;
+      transition: 0.5s;
     }
-
-    #introBtn:hover {
-      background: var(--accent);
-      color: #0f1113;
-    }
-
-    /* CSS'teki opacity:0'ı kırmak için */
-    body.ready { opacity: 1 !important; }
+    #introBtn:hover { border-color: var(--accent); color: var(--text); }
   </style>
 </head>
-<body class="loaded"> <div id="introScreen">
-    <div class="intro-content">
-      <p class="intro-text">"Zaman geçer, izler kalır."</p>
-      <button id="introBtn">Sessizliği Arala</button>
+<body class="loaded">
+
+  <div id="dust-container"></div>
+
+  <div id="introScreen">
+    <div class="intro-content" style="text-align: center;">
+      <p style="font-family: var(--serif); font-style: italic; color: var(--text); margin-bottom: 20px;">"Sessizlikte biriken izler."</p>
+      <button id="introBtn">ARŞİVİ ARALA</button>
     </div>
   </div>
 
   <div class="grain"></div>
   <div class="spotlight"></div>
-  <div id="musicDisc" class="music-control" title="Sesi Aç/Kapat"></div>
+  <div id="musicDisc" class="music-control"></div>
 
   <div class="wrap">
     <header class="blog-header">
       <h1 class="library-title">Sessizliğin Kaydı</h1>
-      <p class="library-sub">"Kaptan'ın anı atlası."</p>
+      <p class="library-sub">"Zaman geçer, izler kalır."</p>
     </header>
 
     <section class="photo-grid">
-      <div class="frame captain"><img src="./profil1.jpg" alt="Kaptan — I"></div>
-      <div class="frame captain"><img src="./profil2.jpg" alt="Kaptan — II"></div>
-      <div class="frame izel"><img src="./izel1.jpg" alt="İzel — I"></div>
-      <div class="frame izel"><img src="./izel2.jpg" alt="İzel — II"></div>
-      <div class="frame izel"><img src="./izel3.jpg" alt="İzel — III"></div>
+      <div class="frame captain"><img src="./profil1.jpg" alt="Kaptan 1"></div>
+      <div class="frame captain"><img src="./profil2.jpg" alt="Kaptan 2"></div>
+      <div class="frame izel"><img src="./izel1.jpg" alt="İzel 1"></div>
+      <div class="frame izel"><img src="./izel2.jpg" alt="İzel 2"></div>
+      <div class="frame izel"><img src="./izel3.jpg" alt="İzel 3"></div>
     </section>
 
     <main class="post-container">
@@ -100,7 +113,7 @@
       </article>
     </main>
 
-    <footer class="bottom-nav">
+    <footer class="bottom-nav" style="text-align: center; margin-bottom: 50px;">
       <a href="./index.html" class="nav-back">← Kıyıya Dön</a>
     </footer>
   </div>
@@ -112,45 +125,53 @@
   <script>
     const music = document.getElementById('bgMusic');
     const disc = document.getElementById('musicDisc');
-    const introScreen = document.getElementById('introScreen');
-    const introBtn = document.getElementById('introBtn');
+    const intro = document.getElementById('introScreen');
+    const btn = document.getElementById('introBtn');
 
     music.volume = 0.5;
 
-    // GİRİŞ BUTONU FONKSİYONU
-    introBtn.addEventListener('click', () => {
-      music.play().catch(e => console.log("Otomatik oynatma engellendi"));
-      disc.classList.add('playing');
-      
-      introScreen.style.opacity = '0';
-      setTimeout(() => {
-        introScreen.style.visibility = 'hidden';
-        document.body.classList.add('ready');
-      }, 1200);
-    });
-
-    // MÜZİK KONTROLÜ
-    disc.addEventListener('click', () => {
-      if (music.paused) {
-        music.play();
-        disc.classList.add('playing');
-      } else {
-        music.pause();
-        disc.classList.remove('playing');
+    // TOZ EFEKTİ SCRIPT (Yavaş ve Rastgele)
+    function createDust() {
+      const container = document.getElementById('dust-container');
+      for (let i = 0; i < 30; i++) {
+        let dust = document.createElement('div');
+        dust.className = 'dust';
+        let size = Math.random() * 2 + 1;
+        dust.style.width = size + 'px';
+        dust.style.height = size + 'px';
+        dust.style.left = Math.random() * 100 + 'vw';
+        dust.style.top = Math.random() * 100 + 'vh';
+        dust.style.animationDuration = (Math.random() * 20 + 20) + 's'; // 20-40 saniye arası (Çok yavaş)
+        dust.style.animationDelay = (Math.random() * 10) + 's';
+        container.appendChild(dust);
       }
+    }
+
+    btn.addEventListener('click', () => {
+      music.play();
+      disc.classList.add('playing');
+      intro.style.opacity = '0';
+      setTimeout(() => {
+        intro.remove();
+        document.body.classList.add('ready');
+      }, 1500);
     });
 
-    // FENER EFEKTİ
+    disc.addEventListener('click', () => {
+      if (music.paused) { music.play(); disc.classList.add('playing'); }
+      else { music.pause(); disc.classList.remove('playing'); }
+    });
+
+    createDust();
+
     const spotlight = document.querySelector('.spotlight');
     document.addEventListener('mousemove', (e) => {
       spotlight.style.setProperty('--x', e.clientX + 'px');
       spotlight.style.setProperty('--y', e.clientY + 'px');
     });
 
-    // GÜVENLİK SÜBABINI EN ALTA ÇEKTİK
-    setTimeout(() => {
-      document.body.classList.add('loaded');
-    }, 1000);
+    // Karanlık Kalma Sorunu İçin Failsafe
+    setTimeout(() => { document.body.classList.add('ready'); }, 2000);
   </script>
 </body>
 </html>
