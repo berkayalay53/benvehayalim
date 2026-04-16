@@ -6,6 +6,74 @@
   <title>Anı Atlası — Berkay Alay</title>
   <link rel="stylesheet" href="./style.css" />
   <style>
+    /* GİRİŞ EKRANI (INTRO) STİLLERİ */
+    #introScreen {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f1113;
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
+    }
+
+    /* İzel3 Blurlu Arka Plan */
+    #introScreen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('./izel3.jpg') center/cover no-repeat;
+      filter: blur(12px) brightness(0.3); /* Melankolik karanlık ve blur */
+      z-index: -1;
+    }
+
+    .intro-content {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .intro-text {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-bottom: 30px;
+      opacity: 0.8;
+      letter-spacing: 2px;
+      font-style: italic;
+    }
+
+    /* Giriş Butonu */
+    #introBtn {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 12px 35px;
+      border-radius: 50px;
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    #introBtn:hover {
+      background: var(--accent);
+      color: #0f1113;
+      box-shadow: 0 0 20px rgba(212, 163, 115, 0.3);
+    }
+
+    /* Sayfa yüklendiğinde içeriği gizle, intro kalkınca göster */
+    body {
+      overflow: hidden; /* Giriş yapmadan kaydırmayı engelle */
+    }
+
+    body.ready {
+      overflow: auto;
+    }
+
+    /* Blog Header ve Diğerleri */
     .blog-header {
       text-align: center;
       padding: 80px 20px 40px;
@@ -49,15 +117,8 @@
       opacity: 1;
     }
 
-    /* İzel'in fotoğrafları: Birer hayalet gibi hafif eğik */
-    .frame.izel {
-      transform: rotate(-1.5deg);
-    }
-
-    /* Senin fotoğrafların: Daha vakur ve düz */
-    .frame.captain {
-      transform: rotate(1.5deg);
-    }
+    .frame.izel { transform: rotate(-1.5deg); }
+    .frame.captain { transform: rotate(1.5deg); }
 
     .post-container {
       max-width: 650px;
@@ -98,75 +159,59 @@
       line-height: 1;
       font-style: italic;
     }
+
+    /* Plak Çalar - Kralkaybederse Görseli */
+    .music-control {
+      background-image: url('./kralkaybederse.jpg') !important;
+    }
   </style>
 </head>
 <body>
+
+  <div id="introScreen">
+    <div class="intro-content">
+      <p class="intro-text">"Hatıralar, sadece sustuğumuzda konuşur."</p>
+      <button id="introBtn">Sessizliğe Adım At</button>
+    </div>
+  </div>
 
   <div class="grain"></div>
   <div class="spotlight"></div>
   <div id="musicDisc" class="music-control" title="Sesi Aç/Kapat"></div>
 
   <div class="wrap">
-    
     <header class="blog-header">
       <h1 class="library-title">Sessizliğin Kaydı</h1>
       <p class="library-sub">"Zaman geçer, izler kalır."</p>
     </header>
 
     <section class="photo-grid">
-      <div class="frame captain">
-        <img src="./profil1.jpg" alt="Kaptan — I">
-      </div>
-      <div class="frame captain">
-        <img src="./profil2.jpg" alt="Kaptan — II">
-      </div>
-
-      <div class="frame izel">
-        <img src="./izel1.jpg" alt="İzel — I">
-      </div>
-      <div class="frame izel">
-        <img src="./izel2.jpg" alt="İzel — II">
-      </div>
-      <div class="frame izel">
-        <img src="./izel3.jpg" alt="İzel — III">
-      </div>
+      <div class="frame captain"><img src="./profil1.jpg" alt="Kaptan — I"></div>
+      <div class="frame captain"><img src="./profil2.jpg" alt="Kaptan — II"></div>
+      <div class="frame izel"><img src="./izel1.jpg" alt="İzel — I"></div>
+      <div class="frame izel"><img src="./izel2.jpg" alt="İzel — II"></div>
+      <div class="frame izel"><img src="./izel3.jpg" alt="İzel — III"></div>
     </section>
 
     <main class="post-container">
-      
       <article class="post">
         <span class="post-date">16 Nisan 2026</span>
         <div class="post-content">
-          <p>
-            Karadeniz'in hırçınlığı dindiğinde, geriye sadece kıyıya vuran o yorgun köpükler kalıyor. Tıpkı zihnimdeki kelimeler gibi. Siyah Eldivenli Prenses, bugün defterin en karanlık sayfasında durdu. Onu oradan çıkarmaya kıyamadım.
-          </p>
+          <p>Karadeniz'in hırçınlığı dindiğinde, geriye sadece kıyıya vuran o yorgun köpükler kalıyor. Tıpkı zihnimdeki kelimeler gibi. Siyah Eldivenli Prenses, bugün defterin en karanlık sayfasında durdu.</p>
         </div>
       </article>
 
       <article class="post">
         <span class="post-date">12 Nisan 2026</span>
         <div class="post-content">
-          <p>
-            İzel'in bakışlarında bir Hammershøi tablosunun sessizliği var. Pencereden içeri sızan o soluk ışık gibi, varlığıyla yokluğu arasındaki o ince çizgide yürüyorum. Yapay bir sûretin bu kadar gerçek hissettirmesi, kalbin bir oyunu mu?
-          </p>
+          <p>İzel'in bakışlarında bir Hammershøi tablosunun sessizliği var. Pencereden içeri sızan o soluk ışık gibi, varlığıyla yokluğu arasındaki o ince çizgide yürüyorum.</p>
         </div>
       </article>
-
-      <article class="post">
-        <span class="post-date">08 Nisan 2026</span>
-        <div class="post-content">
-          <p>
-            Bazı anılar fotoğraf karesine sığmaz. Onlar sadece müziğin ritminde, Karadeniz'in puslu bir sabahında hissedilir. Bugün sadece sustum ve o sessizliğin içine yerleştim.
-          </p>
-        </div>
-      </article>
-
     </main>
 
     <footer class="bottom-nav">
       <a href="./index.html" class="nav-back">← Kıyıya Dön</a>
     </footer>
-
   </div>
 
   <audio id="bgMusic" loop>
@@ -175,31 +220,48 @@
 
   <script>
     const music = document.getElementById('bgMusic');
-music.volume = 0.5; // Ses seviyesini %50 yapar
+    const disc = document.getElementById('musicDisc');
+    const introScreen = document.getElementById('introScreen');
+    const introBtn = document.getElementById('introBtn');
 
-// Otomatik çalma denemesi (Tarayıcı izin verirse)
-window.addEventListener('load', () => {
-  music.play().catch(() => {
-    console.log("Otomatik oynatma tarayıcı tarafından engellendi. Kullanıcı etkileşimi bekleniyor.");
-  });
-});
+    music.volume = 0.5;
 
-// Intro butonuna basıldığında çalmasını garantilemek için
-btn.addEventListener('click', () => {
-  music.play();
-  disc.classList.add('playing');
-  // ... diğer kodlar ...
-});
+    // Giriş butonuna basıldığında
+    introBtn.addEventListener('click', () => {
+      // Müziği başlat
+      music.play().catch(e => console.log("Müzik başlatılamadı:", e));
+      disc.classList.add('playing');
+
+      // Perdeyi kaldır
+      introScreen.style.opacity = '0';
+      introScreen.style.visibility = 'hidden';
+      document.body.classList.add('ready');
+      document.body.classList.add('loaded');
+    });
+
+    // Manuel Müzik Kontrolü
+    disc.addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+        disc.classList.add('playing');
+      } else {
+        music.pause();
+        disc.classList.remove('playing');
+      }
+    });
 
     const spotlight = document.querySelector('.spotlight');
     document.addEventListener('mousemove', (e) => {
       spotlight.style.setProperty('--x', e.clientX + 'px');
       spotlight.style.setProperty('--y', e.clientY + 'px');
     });
-    // Sayfa 3 saniye içinde açılmazsa, karanlığı zorla dağıt
-setTimeout(() => {
-  document.body.classList.add('loaded');
-}, 3000);
+
+    // 3 Saniye Güvenlik Kilidi (Intro ekranı takılırsa)
+    setTimeout(() => {
+      if (!document.body.classList.contains('loaded')) {
+        // İstersen burayı boş bırakabilirsin, kullanıcı butona bassın.
+      }
+    }, 3000);
   </script>
 </body>
 </html>
