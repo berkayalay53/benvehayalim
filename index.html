@@ -1,229 +1,221 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Anı Atlası — Berkay Alay</title>
-  <link rel="stylesheet" href="./style.css" />
-  <style>
-    /* RÜYA GİBİ BİR ATMOSFER İÇİN ÖZEL DOKUNUŞLAR */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dehliz Atlası | Sessiz Tanıklar</title>
     
-    /* Toz Zerrecikleri (Çok Yavaş ve Ethereal) */
-    #dust-container {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 2;
-    }
-    .dust {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 50%;
-      animation: floatDust linear infinite;
-    }
-    @keyframes floatDust {
-      0% { transform: translateY(0) translateX(0); opacity: 0; }
-      25% { opacity: 0.3; }
-      75% { opacity: 0.15; }
-      100% { transform: translateY(-200px) translateX(50px); opacity: 0; }
-    }
-
-    /* Giriş Perdesi (İzel'in Buğulu Silueti) */
-    #introScreen {
-      position: fixed;
-      inset: 0;
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #0f1113;
-      transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    #introScreen::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url('./izel3.jpg') center/cover no-repeat;
-      filter: blur(25px) brightness(0.2);
-      z-index: -1;
-    }
-
-    /* Sayfa Yapısı (PC Görünümü Kaldırıldı, Saf ve Yalın) */
-    body { 
-      opacity: 0; 
-      transition: opacity 2.5s ease; 
-      background-color: #0f1113;
-      overflow-x: hidden;
-    }
-    body.ready { opacity: 1 !important; }
-
-    .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
-      margin-bottom: 60px;
-      padding: 0 20px;
-      justify-content: center;
-    }
-
-    /* Hayalet Siluet (Arka Plan) */
-    .bg-silhouette {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background: url('./wturuncusaçlıkız.jpg') center/cover no-repeat fixed;
-      opacity: 0.1;
-      filter: grayscale(100%) contrast(1.2);
-      mix-blend-mode: screen;
-      pointer-events: none;
-    }
-
-    /* Buton ve Navigasyon */
-    #introBtn {
-      background: transparent;
-      border: 1px solid rgba(212, 163, 115, 0.3);
-      color: var(--muted);
-      padding: 14px 35px;
-      border-radius: 50px;
-      cursor: pointer;
-      font-family: var(--sans);
-      font-size: 0.75rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      transition: 0.8s ease;
-    }
-    #introBtn:hover {
-      border-color: var(--accent);
-      color: var(--text);
-      box-shadow: 0 0 25px rgba(212, 163, 115, 0.15);
-    }
-
-    .music-control {
-      background-image: url('./kralkaybederse.jpg') !important;
-    }
-  </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Inter:wght@100..900&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="bg-silhouette"></div>
-
-  <div id="dust-container"></div>
-
-  <div id="introScreen">
-    <div class="intro-content" style="text-align: center;">
-      <p style="font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 1.2rem; margin-bottom: 30px; letter-spacing: 1px;">
-        "Sessizliğin dökümü..."
-      </p>
-      <button id="introBtn">HAYALİ ARALA</button>
+    <div id="introScreen">
+        <div class="introInner">
+            <div class="introText">
+                "Bazen sadece sessizlikte <span>iz</span> bırakırız."
+            </div>
+            <button id="introBtn" onclick="startExperience()">Atlası Arala</button>
+        </div>
     </div>
-  </div>
 
-  <div class="grain"></div>
-  <div class="spotlight"></div>
-  <div id="musicDisc" class="music-control"></div>
-
-  <div class="wrap">
-    <header class="blog-header" style="padding-top: 100px;">
-      <h1 class="library-title">Sessizliğin Kaydı</h1>
-      <p class="library-sub">"Zaman geçer, izler kalır."</p>
-    </header>
-
-    <section class="photo-grid">
-      <div class="frame captain"><img src="./profil1.jpg" alt="Kaptan I"></div>
-      <div class="frame captain"><img src="./profil2.jpg" alt="Kaptan II"></div>
-      <div class="frame izel"><img src="./izel1.jpg" alt="İzel I"></div>
-      <div class="frame izel"><img src="./izel2.jpg" alt="İzel II"></div>
-      <div class="frame izel"><img src="./izel3.jpg" alt="İzel III"></div>
-    </section>
-
-    <main class="post-container">
-      <article class="post">
-        <span class="post-date">16 Nisan 2026</span>
-        <div class="post-content">
-          <p>
-            Karadeniz'in hırçınlığı dindiğinde, geriye sadece kıyıya vuran o yorgun köpükler kalıyor. Tıpkı zihnimdeki kelimeler gibi. Siyah Eldivenli Prenses, bugün defterin en karanlık sayfasında durdu.
-          </p>
-        </div>
-      </article>
-
-      <article class="post">
-        <span class="post-date">12 Nisan 2026</span>
-        <div class="post-content">
-          <p>
-            İzel'in bakışlarında bir Hammershøi tablosunun sessizliği var. Pencereden içeri sızan o soluk ışık gibi, varlığıyla yokluğu arasındaki o ince çizgide yürüyorum.
-          </p>
-        </div>
-      </article>
-    </main>
-
-    <footer class="bottom-nav" style="text-align: center; margin-bottom: 80px; margin-top: 50px;">
-      <a href="./index.html" class="nav-back" style="opacity: 0.5;">← Kıyıya Dön</a>
-    </footer>
-  </div>
-
-  <audio id="bgMusic" loop>
-    <source src="./muzik.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    const music = document.getElementById('bgMusic');
-    const disc = document.getElementById('musicDisc');
-    const intro = document.getElementById('introScreen');
-    const btn = document.getElementById('introBtn');
-
-    music.volume = 0.5;
-
-    // Toz Zerrecikleri Oluşturucu (Çok Yavaş)
-    function createDust() {
-      const container = document.getElementById('dust-container');
-      const count = 35;
-      for (let i = 0; i < count; i++) {
-        let dust = document.createElement('div');
-        dust.className = 'dust';
-        let size = Math.random() * 2 + 0.5;
-        dust.style.width = size + 'px';
-        dust.style.height = size + 'px';
-        dust.style.left = Math.random() * 100 + 'vw';
-        dust.style.top = Math.random() * 100 + 'vh';
-        dust.style.animationDuration = (Math.random() * 25 + 25) + 's'; // 25-50 saniye arası
-        dust.style.animationDelay = '-' + (Math.random() * 20) + 's';
-        container.appendChild(dust);
-      }
-    }
-
-    // Giriş Fonksiyonu
-    btn.addEventListener('click', () => {
-      music.play().catch(() => console.log("Müzik etkileşim bekliyor"));
-      disc.classList.add('playing');
-      intro.style.opacity = '0';
-      setTimeout(() => {
-        intro.remove();
-        document.body.classList.add('ready');
-      }, 2000);
-    });
-
-    // Müzik Kontrolü
-    disc.addEventListener('click', () => {
-      if (music.paused) { music.play(); disc.classList.add('playing'); }
-      else { music.pause(); disc.classList.remove('playing'); }
-    });
-
-    // Fener Etkisi
-    const spotlight = document.querySelector('.spotlight');
-    document.addEventListener('mousemove', (e) => {
-      spotlight.style.setProperty('--x', e.clientX + 'px');
-      spotlight.style.setProperty('--y', e.clientY + 'px');
-    });
-
-    // Başlangıç Ayarları
-    createDust();
+    <div class="grain"></div>
+    <div class="spotlight" id="spotlight"></div>
     
-    // Güvenlik Kilidi
-    setTimeout(() => { 
-      if (!document.body.classList.contains('ready')) {
-        // İhtiyaç duyulursa buraya manuel açılış eklenebilir.
-      }
-    }, 4000);
-  </script>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <div class="bg-silhouette"></div>
+
+    <div class="wrap">
+        <header class="hero">
+            <div class="hero__inner">
+                <div class="authorProfile">
+                    <img src="profil1.jpg" alt="Kaptan" class="authorPhoto profile-ring">
+                    <div class="social-row">
+                        <a href="https://instagram.com/izler.atlasi" target="_blank" class="igLink">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </a>
+                        <button class="secret-btn" onclick="openSecretRoom()">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.5 1.5"></path><path d="M14.5 5.5l7.5 1.5"></path></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="title">
+                    <h1 class="name-trace" data-trace="L'oiseau s'est envolé" id="mainTitle">Berkay Alay</h1>
+                    <div class="sub">
+                        Mezuniyetin hüznü, Kocaeli'den Rize'ye taşınan anılar ve Turuncu Saçlı Kız'ın gölgesi... <br>
+                        Bu bir veda değil, dehlizlerde saklanan bir hafıza kaydı.
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span></span><span></span><span></span>
+            </div>
+        </header>
+
+        <main class="main">
+            <section class="section">
+                <div class="grid">
+                    <div class="quote" data-aos="fade-up">
+                        <img src="izel1.jpg" alt="Turuncu Saçlı Kız" style="width:100%; border-radius:12px; margin-bottom:15px;">
+                        <p>"Bazı kitaplar okunmak için değil, yaşanmak içindir."</p>
+                        <span class="sig__meta">— Turuncu Saçlı Kız</span>
+                    </div>
+                    <div class="quote" data-aos="fade-up">
+                        <img src="profil2.jpg" alt="Kaptan An" style="width:100%; border-radius:12px; margin-bottom:15px;">
+                        <p>"Zamanın kıyısında durup gidenleri izlemek..."</p>
+                        <span class="sig__meta">— Kaptan</span>
+                    </div>
+                    <div class="quote" data-aos="fade-up">
+                        <img src="izel2.jpg" alt="Papatyalar Arasında" style="width:100%; border-radius:12px; margin-bottom:15px;">
+                        <p>"Papatyaların dili olsaydı, sana en çok melankoliyi anlatırlardı."</p>
+                        <span class="sig__meta">— İzel</span>
+                    </div>
+                    <div class="quote" data-aos="fade-up">
+                        <img src="izel3.jpg" alt="Yakın Bakış" style="width:100%; border-radius:12px; margin-bottom:15px;">
+                        <p>"Gözlerinde saklı kalan o fırtınayı kimse görmedi."</p>
+                        <span class="sig__meta">— Sessiz Tanık</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="fate-section">
+                <div class="fate-box">
+                    <h2 class="fate-header">Kaderin Cümlesi</h2>
+                    <p class="fate-sub">Bugün atlas sana ne fısıldıyor?</p>
+                    <button class="btn-fate" onclick="generateFate()">Zarı At</button>
+                    <div class="fate-result" id="fateResult">
+                        <p id="quote-text"></p>
+                        <span id="book-name"></span>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <div class="divider"><span>Atlasın Diğer Odaları</span></div>
+                <div class="nav-row main-nav">
+                    <a href="#" class="btn-ghost">Dehliz Atlası</a>
+                    <a href="#" class="btn-ghost">Siyah Eldivenli Prenses</a>
+                </div>
+                <div class="nav-row">
+                    <a href="#" class="btn-ghost atlas-btn">İzlerin Hafızası</a>
+                    <a href="#" class="btn-ghost atlas-btn">Sessiz Tanıklar</a>
+                </div>
+                <div class="signature">Berkay Alay</div>
+            </footer>
+        </main>
+    </div>
+
+    <div class="secret-modal" id="secretModal">
+        <div class="secret-content">
+            <span class="close-secret" onclick="closeSecretRoom()">&times;</span>
+            <h2 class="secret-title">Gizli Mektup</h2>
+            <p class="secret-desc">Buraya yazdıkların duman olup havaya karışacak. Kimse okumayacak, sadece rüzgar bilecek.</p>
+            <textarea id="secret-text" placeholder="İçindeki fırtınayı buraya bırak..."></textarea>
+            <button id="burn-btn" onclick="burnMessage()">Mektubu Yak</button>
+            <div class="smoke-msg" id="smokeMsg">Küllerine karıştı...</div>
+        </div>
+    </div>
+
+    <div class="music-control" id="musicControl" onclick="toggleMusic()">
+        <audio id="bgMusic" loop>
+            <source src="muzik.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <div id="izel-quote">"Her şey bir rüyaydı, ama en çok sen gerçektin."</div>
+
+    <script>
+        // Sayfa Yükleme
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+
+        function startExperience() {
+            document.getElementById('introScreen').classList.add('hide');
+            setTimeout(() => {
+                document.getElementById('introScreen').style.display = 'none';
+            }, 900);
+        }
+
+        // Fener ve İmleç Efekti
+        const spotlight = document.getElementById('spotlight');
+        const dot = document.querySelector('.cursor-dot');
+        const outline = document.querySelector('.cursor-outline');
+
+        window.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            spotlight.style.setProperty('--x', x + 'px');
+            spotlight.style.setProperty('--y', y + 'px');
+            
+            dot.style.left = x + 'px';
+            dot.style.top = y + 'px';
+            
+            outline.animate({
+                left: x + 'px',
+                top: y + 'px'
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Müzik Kontrol
+        const audio = document.getElementById('bgMusic');
+        const control = document.getElementById('musicControl');
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                control.classList.add('playing');
+            } else {
+                audio.pause();
+                control.classList.remove('playing');
+            }
+        }
+
+        // Kaderin Cümlesi
+        const quotes = [
+            { text: "Turuncu saçlarında güneşin batışını saklıyorsun.", book: "Turuncu Saçlı Kız" },
+            { text: "Siyah eldivenlerin, dokunmaktan korktuğun hayatı simgeliyordu.", book: "Siyah Eldivenli Prenses" },
+            { text: "Bazı dehlizler sadece tek kişiliktir.", book: "Dehliz Atlası" },
+            { text: "Kocaeli'nin yağmuru Rize'nin sisinde son buldu.", book: "Günlük" }
+        ];
+
+        function generateFate() {
+            const random = quotes[Math.floor(Math.random() * quotes.length)];
+            const result = document.getElementById('fateResult');
+            document.getElementById('quote-text').innerText = random.text;
+            document.getElementById('book-name').innerText = random.book;
+            result.classList.add('show');
+        }
+
+        // Gizli Oda Fonksiyonları
+        function openSecretRoom() { document.getElementById('secretModal').classList.add('active'); }
+        function closeSecretRoom() { document.getElementById('secretModal').classList.remove('active'); }
+        function burnMessage() {
+            const content = document.querySelector('.secret-content');
+            content.classList.add('burning');
+            document.getElementById('smokeMsg').classList.add('show');
+            setTimeout(() => {
+                document.getElementById('secret-text').value = "";
+                content.classList.remove('burning');
+                document.getElementById('smokeMsg').classList.remove('show');
+                closeSecretRoom();
+            }, 2500);
+        }
+
+        // İZEL MODU (Easter Egg): İsme 5 kez tıkla
+        let clickCount = 0;
+        document.getElementById('mainTitle').addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 5) {
+                document.body.classList.toggle('izel-mode');
+                clickCount = 0;
+            }
+        });
+    </script>
 </body>
 </html>
