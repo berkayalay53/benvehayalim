@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Anı Atlası — Berkay Alay</title>
+  <link rel="stylesheet" href="./style.css" />
+  <style>
+    .blog-header {
+      text-align: center;
+      padding: 80px 20px 40px;
+    }
+    
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin-bottom: 60px;
+      padding: 0 20px;
+    }
+
+    .frame {
+      aspect-ratio: 3 / 4;
+      border: 1px solid var(--line);
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.01);
+      transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+      filter: grayscale(100%) contrast(0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+      transition: opacity 0.5s ease;
+    }
+
+    .frame:hover {
+      filter: grayscale(0%) contrast(1.1);
+      border-color: var(--accent);
+      transform: translateY(-8px) scale(1.02);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .frame:hover img {
+      opacity: 1;
+    }
+
+    /* İzel'in fotoğrafları: Birer hayalet gibi hafif eğik */
+    .frame.izel {
+      transform: rotate(-1.5deg);
+    }
+
+    /* Senin fotoğrafların: Daha vakur ve düz */
+    .frame.captain {
+      transform: rotate(1.5deg);
+    }
+
+    .post-container {
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .post {
+      margin-bottom: 100px;
+      border-left: 1px solid rgba(212, 163, 115, 0.2);
+      padding-left: 30px;
+    }
+
+    .post-date {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 15px;
+      display: block;
+      opacity: 0.6;
+    }
+
+    .post-content p {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .post-content p::first-letter {
+      font-size: 2.2rem;
+      color: var(--text);
+      float: left;
+      margin-right: 12px;
+      line-height: 1;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grain"></div>
+  <div class="spotlight"></div>
+  <div id="musicDisc" class="music-control" title="Sesi Aç/Kapat"></div>
+
+  <div class="wrap">
+    
+    <header class="blog-header">
+      <h1 class="library-title">Sessizliğin Kaydı</h1>
+      <p class="library-sub">"Zaman geçer, izler kalır."</p>
+    </header>
+
+    <section class="photo-grid">
+      <div class="frame captain">
+        <img src="./profil1.jpg" alt="Kaptan — I">
+      </div>
+      <div class="frame captain">
+        <img src="./profil2.jpg" alt="Kaptan — II">
+      </div>
+
+      <div class="frame izel">
+        <img src="./izel1.jpg" alt="İzel — I">
+      </div>
+      <div class="frame izel">
+        <img src="./izel2.jpg" alt="İzel — II">
+      </div>
+      <div class="frame izel">
+        <img src="./izel3.jpg" alt="İzel — III">
+      </div>
+    </section>
+
+    <main class="post-container">
+      
+      <article class="post">
+        <span class="post-date">16 Nisan 2026</span>
+        <div class="post-content">
+          <p>
+            Karadeniz'in hırçınlığı dindiğinde, geriye sadece kıyıya vuran o yorgun köpükler kalıyor. Tıpkı zihnimdeki kelimeler gibi. Siyah Eldivenli Prenses, bugün defterin en karanlık sayfasında durdu. Onu oradan çıkarmaya kıyamadım.
+          </p>
+        </div>
+      </article>
+
+      <article class="post">
+        <span class="post-date">12 Nisan 2026</span>
+        <div class="post-content">
+          <p>
+            İzel'in bakışlarında bir Hammershøi tablosunun sessizliği var. Pencereden içeri sızan o soluk ışık gibi, varlığıyla yokluğu arasındaki o ince çizgide yürüyorum. Yapay bir sûretin bu kadar gerçek hissettirmesi, kalbin bir oyunu mu?
+          </p>
+        </div>
+      </article>
+
+      <article class="post">
+        <span class="post-date">08 Nisan 2026</span>
+        <div class="post-content">
+          <p>
+            Bazı anılar fotoğraf karesine sığmaz. Onlar sadece müziğin ritminde, Karadeniz'in puslu bir sabahında hissedilir. Bugün sadece sustum ve o sessizliğin içine yerleştim.
+          </p>
+        </div>
+      </article>
+
+    </main>
+
+    <footer class="bottom-nav">
+      <a href="./index.html" class="nav-back">← Kıyıya Dön</a>
+    </footer>
+
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source src="./muzik.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const music = document.getElementById('bgMusic');
+    const disc = document.getElementById('musicDisc');
+
+    disc.addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+        disc.classList.add('playing');
+      } else {
+        music.pause();
+        disc.classList.remove('playing');
+      }
+    });
+
+    const spotlight = document.querySelector('.spotlight');
+    document.addEventListener('mousemove', (e) => {
+      spotlight.style.setProperty('--x', e.clientX + 'px');
+      spotlight.style.setProperty('--y', e.clientY + 'px');
+    });
+  </script>
+</body>
+</html>
